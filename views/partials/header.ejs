@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-brand">
+    <a href="/">NoticeHub</a>
+  </div>
+  <ul class="nav-links">
+    <% if (adminId) { %>
+      <li><span class="welcome-text">Welcome, <%= adminName %></span></li>
+      <li><a href="/admin">Manage Notices</a></li>
+      <li><a href="/logout" class="btn-logout">Logout</a></li>
+    <% } else { %>
+      <li><a href="/login">Admin Login</a></li>
+    <% } %>
+  </ul>
+</nav>
+
+<main class="container">

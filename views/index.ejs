@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+
+<div class="page-header">
+  <div>
+    <h1>Campus Announcements</h1>
+    <p>Stay up to date with the latest campus notices.</p>
+  </div>
+</div>
+
+<% if (notices.length === 0) { %>
+  <div class="empty-state">
+    <p>No announcements posted yet. Check back soon.</p>
+  </div>
+<% } else { %>
+  <div class="card-grid">
+    <% notices.forEach(notice => { %>
+      <div class="notice-card urgency-<%= notice.urgency.toLowerCase() %>">
+        <div class="card-header">
+          <span class="badge badge-category"><%= notice.category %></span>
+          <span class="badge badge-<%= notice.urgency.toLowerCase() %>"><%= notice.urgency %></span>
+        </div>
+        <h2 class="card-title"><%= notice.title %></h2>
+        <div class="card-meta">
+          <span>&#128203; <%= notice.authorDepartment %></span>
+          <span>&#128197; <%= new Date(notice.createdAt).toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' }) %></span>
+        </div>
+        <p class="card-content"><%= notice.content %></p>
+      </div>
+    <% }) %>
+  </div>
+<% } %>
+
+<%- include('partials/footer') %>

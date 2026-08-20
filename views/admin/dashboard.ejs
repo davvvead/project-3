@@ -1,0 +1,54 @@
+<%- include('../partials/header') %>
+
+<div class="page-header">
+  <div>
+    <h1>Manage Notices</h1>
+    <p>All active campus announcements.</p>
+  </div>
+  <a href="/admin/notices/add" class="btn btn-primary">+ Add New Notice</a>
+</div>
+
+<% if (notices.length === 0) { %>
+  <div class="empty-state">
+    <p>No notices yet. <a href="/admin/notices/add">Create the first one.</a></p>
+  </div>
+<% } else { %>
+  <div class="table-wrapper">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Urgency</th>
+          <th>Department</th>
+          <th>Created</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% notices.forEach(notice => { %>
+          <tr>
+            <td><%= notice.title %></td>
+            <td><%= notice.category %></td>
+            <td>
+              <span class="badge badge-<%= notice.urgency.toLowerCase() %>"><%= notice.urgency %></span>
+            </td>
+            <td><%= notice.authorDepartment %></td>
+            <td><%= new Date(notice.createdAt).toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' }) %></td>
+            <td>
+              <form
+                action="/admin/notices/delete/<%= notice._id %>"
+                method="POST"
+                onsubmit="return confirm('Are you sure you want to delete this notice?')"
+              >
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>
